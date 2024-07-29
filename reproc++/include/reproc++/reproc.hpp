@@ -114,6 +114,13 @@ struct options {
   class input input;
   bool nonblocking = false;
 
+  #if defined(_WIN32)
+  struct {
+    const char* title;
+    bool show_console;
+  } windows = {};
+  #endif
+
   /*! Make a shallow copy of `options`. */
   static options clone(const options &other)
   {

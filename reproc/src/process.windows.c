@@ -393,6 +393,15 @@ int process_start(HANDLE *process,
     r = -(int) GetLastError();
     goto finish;
   }
+  WORD show_window = SW_HIDE;
+  if (options.windows.show_console != true) {
+    show_window = SW_SHOW;
+  }
+
+  wchar_t *title = NULL;
+  if (options.windows.title != NULL) {
+    title = utf16_from_utf8(options.windows.title,-1);
+  }
 
   STARTUPINFOEXW extended_startup_info = {
     .StartupInfo = { .cb = sizeof(extended_startup_info),
@@ -406,12 +415,13 @@ int process_start(HANDLE *process,
                      // https://github.com/DaanDeMeyer/reproc/issues/6 and
                      // https://github.com/DaanDeMeyer/reproc/pull/7 for more
                      // information.
-                     .wShowWindow = SW_HIDE },
+                     .wShowWindow = show_window,
+                     .lpTitle = title
+                      },
     .lpAttributeList = attribute_list
   };
 
   LPSTARTUPINFOW startup_info_address = &extended_startup_info.StartupInfo;
-
   // Child processes inherit the error mode of their parents. To avoid child
   // processes creating error dialogs we set our error mode to not create error
   // dialogs temporarily which is inherited by the child process.

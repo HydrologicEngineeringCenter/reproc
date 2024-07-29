@@ -53,6 +53,10 @@ if(UNIX)
   reproc_test(reproc fork C)
 endif()
 
+if (WIN32)
+  reproc_test(reproc windows-title C)
+endif()
+
 reproc_example(reproc drain C)
 reproc_example(reproc env C ARGS PROJECT=REPROC)
 reproc_example(reproc path C)

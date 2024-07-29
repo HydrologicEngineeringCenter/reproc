@@ -34,6 +34,13 @@ struct process_options {
     handle_type err;
     handle_type exit;
   } handle;
+
+  #if defined(_WIN32)
+    struct {
+      const char* title;
+      bool show_console;
+    } windows;
+  #endif
 };
 
 // Spawns a child process that executes the command stored in `argv`.

@@ -218,6 +218,11 @@ int reproc_start(reproc_t *process,
                 .out = child.out,
                 .err = child.err,
                 .exit = (handle_type) child.exit }
+    #if defined(_WIN32)
+    ,
+    .windows = { .title = options.windows.title,
+                 .show_console = options.windows.show_console}
+    #endif
   };
 
   r = process_start(&process->handle, argv, process_options);

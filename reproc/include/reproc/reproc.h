@@ -294,6 +294,13 @@ typedef struct reproc_options {
   until streams becomes readable/writable.
   */
   bool nonblocking;
+
+  #if defined(_WIN32)
+    struct {
+      const char* title;
+      bool show_console;
+    } windows;
+  #endif
 } reproc_options;
 
 enum {
