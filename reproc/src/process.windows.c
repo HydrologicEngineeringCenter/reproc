@@ -394,7 +394,7 @@ int process_start(HANDLE *process,
     goto finish;
   }
   WORD show_window = SW_HIDE;
-  if (options.windows.show_console != true) {
+  if (options.windows.show_console == true) {
     show_window = SW_SHOW;
   }
 
